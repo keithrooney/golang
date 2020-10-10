@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Slices are much more common than arrays
 func main() {
@@ -48,7 +51,7 @@ func main() {
 	a = a[1:4]
 	fmt.Println(a)
 
-	// The default is zero for the lowwer bound ... 
+	// The default is zero for the lowwer bound ...
 	a = a[:2]
 	fmt.Println(a)
 
@@ -56,10 +59,10 @@ func main() {
 	a = a[1:]
 	fmt.Println(a)
 
-        // A slice has both a length and a capacity
-        // The length of a slice is the number of elements it contains
-        // The capacity of a slice is the number of elements in the underlying array, counting from the first element.
-        b := []int{1, 2, 3, 4, 5, 6}
+	// A slice has both a length and a capacity
+	// The length of a slice is the number of elements it contains
+	// The capacity of a slice is the number of elements in the underlying array, counting from the first element.
+	b := []int{1, 2, 3, 4, 5, 6}
 
 	fmt.Printf("len=%d cap=%d %v\n", len(b), cap(b), b)
 
@@ -78,6 +81,54 @@ func main() {
 		fmt.Println("nil!")
 	}
 
+	x := make([]int, 5)
+	printSlice("x", x)
+
+	y := make([]int, 0, 5)
+	printSlice("y", y)
+
+	z := b[:2]
+	printSlice("z", z)
+
+	w := z[2:5]
+	printSlice("w", w)
+
+	// Create a tic-tac-toe board.
+	board := [][]string{
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+	}
+
+	// The players take turns.
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[1][2] = "X"
+	board[1][0] = "O"
+	board[0][2] = "X"
+
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
+
+	var slice []int
+	printSlice1(slice)
+
+	slice = append(slice, 0)
+	printSlice1(slice)
+
+	slice = append(slice, 1)
+	printSlice1(slice)
+
+	slice = append(slice, 2, 3, 4)
+	printSlice1(slice)
 
 }
 
+func printSlice(s string, x []int) {
+	fmt.Printf("%s len=%d cap=%d %v\n", s, len(x), cap(x), x)
+}
+
+func printSlice1(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}

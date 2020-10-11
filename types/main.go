@@ -1,5 +1,5 @@
 // Go basic types are ...
-// 
+//
 // bool
 // string
 // int, int8, int16, int32, int64
@@ -21,9 +21,9 @@ import (
 )
 
 var (
-	ToBe bool = false
-	MaxInt uint64 = 1<<64 - 1
-	z complex128 = cmplx.Sqrt(-5 + 12i)
+	ToBe   bool       = false
+	MaxInt uint64     = 1<<64 - 1
+	z      complex128 = cmplx.Sqrt(-5 + 12i)
 )
 
 func main() {
@@ -66,5 +66,22 @@ func main() {
 	fmt.Printf("Type: %T\n", q)
 	fmt.Printf("Type: %T\n", r)
 
-}
+	var one interface{} = "hello"
 
+	// Below is a type assertion.
+	// It asserts the interface value holds the concrete type "string"
+	// It assigns the underlying "string" value to the variable t
+	// If m is not a string type, the statement will panic
+	two := one.(string)
+	fmt.Println(two)
+
+	two, ok := one.(string)
+	fmt.Println(two, ok)
+
+	three, ok := one.(float64)
+	fmt.Println(three, ok)
+
+	// three = one.(float64) // this will panic
+	// fmt.Println(three)
+
+}
